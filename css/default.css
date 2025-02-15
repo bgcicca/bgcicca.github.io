@@ -30,6 +30,10 @@ body {
   margin: 0 auto;
 }
 
+article {
+    text-align: justify;
+}
+
 a:link,
 a:visited {
   color: var(--link-fg);
