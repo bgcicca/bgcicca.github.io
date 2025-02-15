@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --bg-primary: #282c34;
   --fg-color: #c0caf5;
@@ -9,6 +15,7 @@
 
 html {
   font-size: 62.5%;
+  overflow-x: hidden; 
 }
 
 body {
@@ -18,34 +25,37 @@ body {
   background-color: var(--bg-primary);
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 60rem; 
+  margin: 0 auto;
 }
 
-a:link {
-  color: var(--link-fg);
-}
-
+a:link,
 a:visited {
   color: var(--link-fg);
 }
 
 header {
   border-bottom: 0.2rem solid var(--fg-color);
+  padding: 1.2rem 0;
 }
 
 .container {
   font-size: 1.2rem;
   font-family: "Merriweather Sans", sans-serif;
   height: 70px;
-  width: 100vw;
+  width: 100%; 
   display: flex;
   align-items: center;
+  padding: 0 1rem;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
+  max-width: 80%;
   margin: 0 auto;
 }
 
@@ -77,11 +87,10 @@ header {
 }
 
 article {
-  margin: 2rem auto; 
-  max-width: 60rem;
+  margin: 2rem auto;
   width: 100%;
   padding: 1rem;
-  text-align: center;  
+  text-align: center;
 }
 
 h1 {
@@ -104,22 +113,14 @@ footer {
   border-top: 0.2rem solid var(--border-bg);
   font-size: 1.2rem;
   color: var(--footer-fg);
+  text-align: center;
 }
 
 /* -------------------------- */
 /* Media Queries              */
 /* -------------------------- */
 
-@media (max-width: 319px) {
-  body {
-    width: 90%;
-    margin: 0;
-    padding: 0 5%;
-  }
-  header {
-    margin: 4.2rem 0;
-  }
-  
+@media (max-width: 639px) {
   .navbar {
     flex-direction: column;
   }
@@ -129,13 +130,9 @@ footer {
     text-align: center;
   }
   
-  footer {
-    text-align: center;
-  }
-  
   .logo {
-    text-align: center;
     margin: 1rem auto 3rem;
+    text-align: center;
   }
   
   .logo a {
@@ -144,61 +141,11 @@ footer {
   
   nav a {
     display: block;
-    line-height: 1.6;
     margin: 0;
-  }
-}
-
-@media (min-width: 320px) and (max-width: 639px) {
-  body {
-    width: 90%;
-    margin: 0;
-    padding: 0 5%;
-  }
-  header {
-    margin: 4.2rem 0;
-  }
-  
-  .navbar {
-    flex-direction: column;
-  }
-  
-  nav {
-    margin: 0 auto 3rem;
-    text-align: center;
-  }
-  
-  footer {
-    text-align: center;
-  }
-  
-  .logo {
-    text-align: center;
-    margin: 1rem auto 3rem;
-  }
-  
-  .logo a {
-    font-size: 2.4rem;
-  }
-  
-  nav a {
-    display: inline;
-    margin: 0 0.6rem;
   }
 }
 
 @media (min-width: 640px) {
-  body {
-    width: 60rem;
-    margin: 0 auto;
-    padding: 0;
-  }
-  
-  header {
-    margin: 0 0 3rem;
-    padding: 1.2rem 0;
-  }
-  
   .navbar {
     flex-direction: row;
   }
@@ -212,10 +159,6 @@ footer {
     margin-left: 1.2rem;
   }
   
-  footer {
-    text-align: right;
-  }
-  
   .logo {
     margin: 0;
     text-align: left;
@@ -223,5 +166,9 @@ footer {
   
   .logo a {
     font-size: 1.8rem;
+  }
+  
+  footer {
+    text-align: right;
   }
 }
