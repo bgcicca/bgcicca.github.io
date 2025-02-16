@@ -1,7 +1,7 @@
 ---
 title: Could DeepSeek Be the Democratization of AI?
 author: Bruno Ciccarino
-tags: ["artificial intelligence", "open source", "AI democratization", "DeepSeek", "OpenAI", "machine learning"]
+tags: ["artificial intelligence", "open source", "AI democratization", "DeepSeek", "OpenAI", "machine learning", "software"]
 ---
 
 # Could DeepSeek Be the Democratization of AI?

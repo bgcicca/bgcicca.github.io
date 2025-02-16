@@ -1,7 +1,7 @@
 ---
 title: Se a implementação é difícil de ser explicada, provavelmente é uma péssima ideia
 author: Bruno Ciccarino
-tags: ["desenvolvimento", "design", "Over-engineering"]
+tags: ["desenvolvimento", "design", "Over-engineering", "software"]
 ---
 
 * Introdução  

@@ -1,7 +1,7 @@
 ---
 title: Building Accessible Applications for the Visually Impaired
 author: Bruno Ciccarino
-tags: ["accessibility", "inclusive design", "web development", "a11y", "UI/UX"]
+tags: ["accessibility", "inclusive design", "web development", "a11y", "UI/UX", "software"]
 ---
 
 ## Why Accessibility Matters

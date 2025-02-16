@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 import           Data.Monoid (mappend)
 import           Hakyll
-
+import           Control.Monad (when)
 
 --------------------------------------------------------------------------------
 
@@ -11,8 +11,7 @@ config = defaultConfiguration
   }
 
 main :: IO ()
-main = do
-  hakyllWith config $ do
+main = hakyllWith config $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -30,18 +29,20 @@ main = do
     -- Build tags and define tag rules
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
     tagsRules tags $ \tag pattern -> do
-        let title = "Posts tagged \"" ++ tag ++ "\""
-        route idRoute
-        compile $ do
-            posts <- recentFirst =<< loadAll pattern
-            let ctx = constField "title" title
-                      `mappend` listField "posts" (postCtxWithTags tags) (return posts)
-                      `mappend` defaultContext
+        
+        when (tag `elem` ["philosophy", "politics", "software"]) $ do
+            let title = "Posts in category: " ++ tag
+            route idRoute
+            compile $ do
+                posts <- recentFirst =<< loadAll pattern
+                let ctx = constField "title" title
+                          `mappend` listField "posts" (postCtxWithTags tags) (return posts)
+                          `mappend` defaultContext
 
-            makeItem ""
-                >>= loadAndApplyTemplate "templates/tag.html" ctx
-                >>= loadAndApplyTemplate "templates/default.html" ctx
-                >>= relativizeUrls
+                makeItem ""
+                    >>= loadAndApplyTemplate "templates/tag.html" ctx
+                    >>= loadAndApplyTemplate "templates/default.html" ctx
+                    >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
@@ -64,14 +65,18 @@ main = do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
+    -- Modifique o compilador da home para incluir a listagem de categorias
     match "index.html" $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let indexCtx =
+           
+            let cats = ["philosophy", "politics", "software"]
+                catsHtml = "<ul>" <> mconcat [ "<li><a href=\"/tags/" <> cat <> ".html\">" <> cat <> "</a></li>" | cat <- cats ] <> "</ul>"
+                indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
+                    constField "categories" catsHtml `mappend`
                     defaultContext
-
             getResourceBody
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
@@ -85,6 +90,6 @@ postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
 
--- Add tags to the post context
+-- Adiciona as tags ao contexto dos posts
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
