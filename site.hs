@@ -30,7 +30,7 @@ main = hakyllWith config $ do
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
     tagsRules tags $ \tag pattern -> do
         
-        when (tag `elem` ["philosophy", "politics", "software"]) $ do
+        when (tag `elem` ["philosophy", "politics", "software", "books"]) $ do
             let title = "Posts in category: " ++ tag
             route idRoute
             compile $ do
@@ -65,13 +65,12 @@ main = hakyllWith config $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-    -- Modifique o compilador da home para incluir a listagem de categorias
     match "index.html" $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
            
-            let cats = ["philosophy", "politics", "software"]
+            let cats = ["philosophy", "politics", "software", "books"]
                 catsHtml = "<ul>" <> mconcat [ "<li><a href=\"/tags/" <> cat <> ".html\">" <> cat <> "</a></li>" | cat <- cats ] <> "</ul>"
                 indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
