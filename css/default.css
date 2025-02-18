@@ -14,10 +14,17 @@
 }
 
 @font-face {
-  font-family: 'JetBrainsMonoNerdFont-ExtraBold';
-  src: url('/fonts/JetBrainsMonoNerdFont-ExtraBold.ttf') format('truetype');
+  font-family: 'JetBrainsMonoNerdFont-Regular';
+  src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
   font-style: normal;
   font-display: swap;
+}
+
+@font-face {
+  font-family: 'Excalifont';
+  src: url('/fonts/Excalifont-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html {
@@ -27,7 +34,7 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: "JetBrainsMonoNerdFont-ExtraBold";
+  font-family: "JetBrainsMonoNerdFont-Regular";
   color: var(--fg-color);
   background-color: var(--bg-primary);
   margin: 0;
@@ -122,6 +129,7 @@ footer {
   margin-top: 3rem;
   padding: 1.2rem 0;
   border-top: 0.2rem solid var(--border-bg);
+  font-family: 'Excalifont';
   font-size: 1.2rem;
   color: var(--footer-fg);
   text-align: center;
