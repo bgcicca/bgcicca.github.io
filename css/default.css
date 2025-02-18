@@ -13,6 +13,13 @@
   --border-bg: #c0caf5; 
 }
 
+@font-face {
+  font-family: 'JetBrainsMonoNerdFont-ExtraBold';
+  src: url('/fonts/JetBrainsMonoNerdFont-ExtraBold.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   font-size: 62.5%;
   overflow-x: hidden; 
@@ -20,7 +27,7 @@ html {
 
 body {
   font-size: 1.6rem;
-  font-family: "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  font-family: "JetBrainsMonoNerdFont-ExtraBold";
   color: var(--fg-color);
   background-color: var(--bg-primary);
   margin: 0;
