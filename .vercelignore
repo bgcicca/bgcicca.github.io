@@ -1,0 +1,8 @@
+node_modules
+.stack-work
+_cache
+.git
+.vscode
+.env
+*.log
+
