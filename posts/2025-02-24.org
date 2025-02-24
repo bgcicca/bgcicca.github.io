@@ -1,0 +1,26 @@
+---
+title: Why python sucks?
+author: Bruno Ciccarino
+tags: ["software", "python", "harmful"]
+---
+
+* Abstract
+This article critically examines several inherent limitations in Python’s design and implementation that affect its performance in computation‐intensive applications. We focus on four key aspects: auto-vectorization inefficiencies, context-sensitive grammar, asynchronous execution impeded by the Global Interpreter Lock (GIL), and an outdated garbage collection mechanism.
+
+* Introduction
+Python is widely acclaimed for its readability and ease-of-use, which have made it a popular choice among developers. However, these advantages come at a cost in performance-critical domains. In particular, Python’s architectural decisions—such as treating everything as an object and employing a context-sensitive grammar—pose significant challenges. This article presents a direct analysis of these limitations and discusses their impact on modern computing, especially in applications requiring heavy numerical computations and efficient memory management.
+
+* Limitations in Auto-Vectorization
+Python’s design dictates that nearly every entity is an object. While this approach fosters flexibility, it also hinders auto-vectorization, an optimization technique vital for high-performance computing tasks (e.g., image rendering). Because the overhead of object management prevents the exploitation of modern 64-bit features, Python is often unable to achieve the performance improvements that auto-vectorization offers in lower-level languages.
+
+* Context-Sensitive Grammar and Its Implications
+Python utilizes a context-sensitive grammar—primarily due to its reliance on indentation to define code blocks. Although this feature contributes to code clarity, it introduces a level of complexity typically reserved for more expressive grammatical frameworks. Despite not being classified strictly as an unrestricted language under Chomsky’s hierarchy, the contextual nature of Python’s syntax complicates both static analysis and optimization processes. This complexity can impede compiler efficiency and limit the performance benefits in certain computational scenarios.
+
+* Asynchronous Execution and the GIL
+Python’s asynchronous operations are often characterized by a theoretical O(log n) performance complexity. In practice, however, when operating on small objects, this logarithmic complexity does not translate into significant speed gains. Furthermore, the Global Interpreter Lock (GIL) restricts the simultaneous execution of threads, effectively preventing the full utilization of multi-core processors. This issue is exacerbated by the stop-the-world pauses inherent in Python’s execution model and the lack of a parallel minor garbage collection process, further undermining performance in concurrent applications.
+
+* Outdated Garbage Collection Mechanism
+The garbage collection (GC) system in Python is based on the traditional mark-and-sweep algorithm, a design that dates back to the 1970s. Although this method is robust and well-understood, it lacks modern features such as parallel minor collection. The antiquated GC approach results in inefficient memory management and contributes to performance bottlenecks, particularly in applications that demand rapid allocation and deallocation of objects.
+
+* Conclusion
+While Python remains an attractive language for rapid development and prototyping, its inherent design choices present serious drawbacks for performance-critical tasks. The inability to effectively auto-vectorize, the complications introduced by context-sensitive grammar, the performance limitations of asynchronous operations due to the GIL, and an outdated garbage collection mechanism collectively demonstrate why Python may not be ideal for modern, high-performance computing. Future improvements may alleviate some of these issues, yet developers must remain aware of these limitations when choosing Python for computationally intensive projects.
