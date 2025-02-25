@@ -5,33 +5,50 @@
 }
 
 :root {
-  --bg-primary: #282c34;
-  --fg-color: #c0caf5;
+  --bg-primary: #000000;
+  --fg-color: #33ff33;
   --nav-color: #4B5263;
   --link-fg: #58a6ff;
   --footer-fg: #fff;
-  --border-bg: #c0caf5; 
+  --border-bg: #c0caf5;
+}
+
+@font-face {
+  font-family: 'JetBrainsMonoNerdFont-Regular';
+  src: url('/fonts/JetBrainsMonoNerdFont-Regular.ttf') format('truetype');
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Excalifont';
+  src: url('/fonts/Excalifont-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
 html {
   font-size: 62.5%;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 body {
   font-size: 1.6rem;
-  font-family: "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", monospace;
+  font-family: "JetBrainsMonoNerdFont-Regular";
   color: var(--fg-color);
   background-color: var(--bg-primary);
   margin: 0;
   padding: 0;
   width: 100%;
-  max-width: 60rem; 
+  max-width: 60rem;
   margin: 0 auto;
 }
 
 article {
-    text-align: justify;
+  margin: 2rem auto;
+  width: 100%;
+  padding: 1rem;
+  text-align: left;
 }
 
 a:link,
@@ -40,15 +57,14 @@ a:visited {
 }
 
 header {
-  border-bottom: 0.2rem solid var(--fg-color);
   padding: 1.2rem 0;
 }
 
 .container {
   font-size: 1.2rem;
-  font-family: "Merriweather Sans", sans-serif;
+  font-family: "JetBrainsMonoNerdFont-Regular";
   height: 70px;
-  width: 100%; 
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 0 1rem;
@@ -90,13 +106,6 @@ header {
   text-transform: uppercase;
 }
 
-article {
-  margin: 2rem auto;
-  width: 100%;
-  padding: 1rem;
-  text-align: center;
-}
-
 h1 {
   font-size: 2.4rem;
 }
@@ -115,34 +124,27 @@ footer {
   margin-top: 3rem;
   padding: 1.2rem 0;
   border-top: 0.2rem solid var(--border-bg);
+  font-family: 'Excalifont';
   font-size: 1.2rem;
   color: var(--footer-fg);
   text-align: center;
 }
 
-/* -------------------------- */
-/* Media Queries              */
-/* -------------------------- */
-
 @media (max-width: 639px) {
   .navbar {
     flex-direction: column;
   }
-  
   nav {
     margin: 0 auto 3rem;
     text-align: center;
   }
-  
   .logo {
     margin: 1rem auto 3rem;
     text-align: center;
   }
-  
   .logo a {
     font-size: 2.4rem;
   }
-  
   nav a {
     display: block;
     margin: 0;
@@ -153,25 +155,20 @@ footer {
   .navbar {
     flex-direction: row;
   }
-  
   nav {
     margin: 0;
     text-align: right;
   }
-  
   nav a {
     margin-left: 1.2rem;
   }
-  
   .logo {
     margin: 0;
     text-align: left;
   }
-  
   .logo a {
     font-size: 1.8rem;
   }
-  
   footer {
     text-align: right;
   }

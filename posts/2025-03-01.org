@@ -1,0 +1,12 @@
+---
+title: Herança Não É Vilã - Como Utilizar o 'Extends' de Forma Correta em Resposta a 'Why Extends Is Evil'
+author: Bruno Ciccarino
+tags: "software"
+---
+
+    Esses dias eu estava na internet, lendo alguns tutoriais sobre java, e me apareceu um artigo um tanto quanto inusitado com o titulo "Why extends is evil", de imediato fiquei curioso e parti para a leitura, ja de primeiro momento fiquei com uma duvida na cabeça: "Qual seria a forma certa ou a melhor forma de usar herança (extends) no java", e então parti para a pesquisa e para a resposta dessa pergunta decidi escrever esse texto.
+
+    Esse artigo aborda o mal uso do extends (herança) e aborda como podemos contornar isso de uma forma que a herança se torne mais um bom recurso a ser usado do que um problema.
+
+* Problemas abordados no artigo "why extends is evil"
+  
