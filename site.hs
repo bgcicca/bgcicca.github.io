@@ -1,14 +1,16 @@
-{-# LANGUAGE OverloadedStrings, BlockArguments #-}  -- Added BlockArguments
+{-# LANGUAGE OverloadedStrings, BlockArguments #-}
 import           Data.Monoid (mappend)
 import           Hakyll
 import           Control.Monad (when)
 
 --------------------------------------------------------------------------------
-
 config :: Configuration
 config = defaultConfiguration
   { destinationDirectory = "docs"
   }
+
+sidebarCtx :: Context String
+sidebarCtx = field "sidebar" $ \_ -> loadBody "templates/sidebar.html"
 
 main :: IO ()
 main = hakyllWith config $ do
@@ -27,13 +29,11 @@ main = hakyllWith config $ do
     match (fromList ["about.rst", "contact.markdown"]) $ do
         route   $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/default.html" defaultContext
+            >>= loadAndApplyTemplate "templates/default.html" (defaultContext `mappend` sidebarCtx)
             >>= relativizeUrls
 
-    -- Build tags and define tag rules
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
     tagsRules tags $ \tag pattern -> do
-        
         when (tag `elem` ["philosophy", "politics", "software", "books"]) $ do
             let title = "Posts in category: " ++ tag
             route idRoute
@@ -41,8 +41,7 @@ main = hakyllWith config $ do
                 posts <- recentFirst =<< loadAll pattern
                 let ctx = constField "title" title
                           `mappend` listField "posts" (postCtxWithTags tags) (return posts)
-                          `mappend` defaultContext
-
+                          `mappend` (defaultContext `mappend` sidebarCtx)
                 makeItem ""
                     >>= loadAndApplyTemplate "templates/tag.html" ctx
                     >>= loadAndApplyTemplate "templates/default.html" ctx
@@ -51,8 +50,8 @@ main = hakyllWith config $ do
     match "posts/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    (postCtxWithTags tags)
-            >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags)
+            >>= loadAndApplyTemplate "templates/post.html" (postCtxWithTags tags `mappend` sidebarCtx)
+            >>= loadAndApplyTemplate "templates/default.html" (postCtxWithTags tags `mappend` sidebarCtx)
             >>= relativizeUrls
 
     create ["archive.html"] $ do
@@ -60,10 +59,9 @@ main = hakyllWith config $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let archiveCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Archives"            `mappend`
-                    defaultContext
-
+                    listField "posts" postCtx (return posts)
+                    `mappend` constField "title" "Archives"
+                    `mappend` (defaultContext `mappend` sidebarCtx)
             makeItem ""
                 >>= loadAndApplyTemplate "templates/archive.html" archiveCtx
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
@@ -73,19 +71,21 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-           
             let cats = ["philosophy", "politics", "software", "books"]
                 catsHtml = "<ul>" <> mconcat [ "<li><a href=\"/tags/" <> cat <> ".html\">" <> cat <> "</a></li>" | cat <- cats ] <> "</ul>"
                 indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "categories" catsHtml `mappend`
-                    defaultContext
+                    listField "posts" postCtx (return posts)
+                    `mappend` constField "categories" catsHtml
+                    `mappend` (defaultContext `mappend` sidebarCtx)
             getResourceBody
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
                 >>= relativizeUrls
 
+    match "templates/sidebar.html" $ compile getResourceBody
+
     match "templates/*" $ compile templateBodyCompiler
+    match "sidebar.html" $ compile templateBodyCompiler
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
@@ -93,6 +93,5 @@ postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
 
--- Adiciona as tags ao contexto dos posts
 postCtxWithTags :: Tags -> Context String
 postCtxWithTags tags = tagsField "tags" tags `mappend` postCtx
