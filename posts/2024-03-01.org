@@ -8,7 +8,7 @@ Recentemente, me peguei assistindo a mais um vídeo do [[https://www.youtube.com
 
 Refletindo sobre a bolha tech aqui no Brasil, percebi como a mentalidade de que "tudo é produto" tem se enraizado. Parece que muitos desconhecem o conceito de *recreational programming* ou simplesmente o ignoram. Hoje em dia, é raro ver pessoas iniciando na programação apenas pelo prazer de programar. Tudo precisa ter um propósito, um projeto vendável ou uma linha no currículo. Mas já pararam para pensar em como essa mentalidade pode ser prejudicial para a nossa carreira?
 
-Vejo cada vez menos gente com sede de aprender. Quando comecei a programar, qualquer momento era uma oportunidade para praticar — não importava o que fosse, eu programava por pura diversão.
+Vejo cada vez menos gente com sede de aprender. Quando comecei a programar, qualquer momento era uma oportunidade para praticar, não importava o que fosse, eu programava por pura diversão.
 
 Atualmente, parece que o foco é só saber o "framework da moda", mesmo sabendo que muitos deles têm vida útil de apenas 2 a 5 anos. Onde foi parar a curiosidade? Cadê aquela galera que faz as coisas simplesmente porque gosta?
 

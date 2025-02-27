@@ -41,7 +41,7 @@ A complexidade é um desafio inerente ao desenvolvimento de software e sistemas.
 
 * Links
 
-[[https://pyvideo.org/pycon-us-2012/stop-writing-classes.html][stop writing classes]]
+- [[https://pyvideo.org/pycon-us-2012/stop-writing-classes.html][stop writing classes]]
 
 * Conclusão  
 Implementações difíceis de explicar não são apenas um problema técnico, mas organizacional. Elas corroem a eficiência, aumentam riscos e indicam falta de maturidade no entendimento do problema. A simplicidade, por outro lado, é a base de sistemas resilientes e equipes ágeis. Como diria Dijkstra: "A elegância não é um luxo dispensável, mas um fator que decide entre o sucesso e o fracasso". Portanto, se uma ideia não cabe em um quadro branco, é hora de repensá-la.  
