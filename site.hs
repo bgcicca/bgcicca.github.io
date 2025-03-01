@@ -68,7 +68,7 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let cats = ["philosophy", "politics", "software", "books", "harmfull stuff"]
+            let cats = ["philosophy", "politics", "software", "books", "harmfull stuff", "lisp", "lem-editor"]
                 catsHtml = "<ul>" <> mconcat [ "<li><a href=\"/tags/" <> cat <> ".html\">" <> cat <> "</a></li>" | cat <- cats ] <> "</ul>"
                 indexCtx =
                     listField "posts" postCtx (return posts)

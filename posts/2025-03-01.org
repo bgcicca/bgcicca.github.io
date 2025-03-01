@@ -1,7 +1,7 @@
 ---
 title: Lem, the Editor of the Future?
 author: Bruno Ciccarino
-tags: ["software", "emacs", "neovim", "text-editor", "editor", "future", "common lisp"]
+tags: ["software", "emacs", "neovim", "text-editor", "editor", "future", "common lisp", "lem-editor", "lisp"]
 ---
 
 I've been exploring Common Lisp projects to sharpen my coding workflow when I stumbled upon Lem—a take on the classic editor concept. Lem combines the best of both Emacs and Vim: it offers familiar editing while improve some of the traditional emacs pain points, like sluggish startup times and the bloated of Emacs Lisp (elisp was a very good language when Stallman designed it and today it is still "good enough". But this begs the question: "Why not Common Lisp?"  but Emacs users are notoriously conservative about these things. Just consider the fury that a small change to how registers work has sparked -- see this Reddit [[https://www.reddit.com/r/emacs/comments/18f5oi9/bad_news_emacs/][post]] and the Emacs-devel thread about it starting [[https://lists.gnu.org/archive/html/emacs-devel/2023-12/msg00164.html][here]]. Aslo as we know, RMS isn't a fan of common lisp, but there's more to it than that. When Emacs was being developed, a final specification was still 10 years away and there was no (or at least no "free") implementation available, so RMS released its own.). Instead, Lem is configured in Common Lisp, making it a multithreaded and very easy to customize alternative.
