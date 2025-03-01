@@ -1,9 +1,7 @@
 {-# LANGUAGE OverloadedStrings, BlockArguments #-}
 import           Data.Monoid (mappend)
 import           Hakyll
-import           Control.Monad (when)
 
---------------------------------------------------------------------------------
 config :: Configuration
 config = defaultConfiguration
   { destinationDirectory = "docs"
@@ -21,7 +19,7 @@ main = hakyllWith config $ do
     match "fonts/**" $ do
         route   idRoute
         compile copyFileCompiler
-        
+
     match "css/*" $ do
         route   idRoute
         compile compressCssCompiler
@@ -34,18 +32,17 @@ main = hakyllWith config $ do
 
     tags <- buildTags "posts/*" (fromCapture "tags/*.html")
     tagsRules tags $ \tag pattern -> do
-        when (tag `elem` ["philosophy", "politics", "software", "books"]) $ do
+        route idRoute
+        compile $ do
+            posts <- recentFirst =<< loadAll pattern
             let title = "Posts in category: " ++ tag
-            route idRoute
-            compile $ do
-                posts <- recentFirst =<< loadAll pattern
-                let ctx = constField "title" title
-                          `mappend` listField "posts" (postCtxWithTags tags) (return posts)
-                          `mappend` (defaultContext `mappend` sidebarCtx)
-                makeItem ""
-                    >>= loadAndApplyTemplate "templates/tag.html" ctx
-                    >>= loadAndApplyTemplate "templates/default.html" ctx
-                    >>= relativizeUrls
+                ctx = constField "title" title
+                      `mappend` listField "posts" (postCtxWithTags tags) (return posts)
+                      `mappend` (defaultContext `mappend` sidebarCtx)
+            makeItem ""
+                >>= loadAndApplyTemplate "templates/tag.html" ctx
+                >>= loadAndApplyTemplate "templates/default.html" ctx
+                >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
@@ -71,7 +68,7 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let cats = ["philosophy", "politics", "software", "books"]
+            let cats = ["philosophy", "politics", "software", "books", "harmfull stuff"]
                 catsHtml = "<ul>" <> mconcat [ "<li><a href=\"/tags/" <> cat <> ".html\">" <> cat <> "</a></li>" | cat <- cats ] <> "</ul>"
                 indexCtx =
                     listField "posts" postCtx (return posts)
@@ -83,11 +80,9 @@ main = hakyllWith config $ do
                 >>= relativizeUrls
 
     match "templates/sidebar.html" $ compile getResourceBody
-
     match "templates/*" $ compile templateBodyCompiler
     match "sidebar.html" $ compile templateBodyCompiler
 
---------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`

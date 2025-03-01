@@ -1,7 +1,7 @@
 ---
 title: Why python sucks?
 author: Bruno Ciccarino
-tags: ["software", "python", "harmful"]
+tags: ["harmful stuff"]
 ---
 
 * Abstract
