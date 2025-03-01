@@ -59,3 +59,7 @@ Lem isn’t just another text editor—it’s a rethinking of how editors can be
 **Disclaimer:** This is a personal opinion, and the author has no affiliation with Lem or RMS.
 
 Happy coding!
+
+***** See aslo 
+- [[https://www.youtube.com/watch?v=Ph8M8ThBgPc][LEM - What If Emacs Was Multithreaded]]
+- [[https://lem-project.github.io/][lem project website]]
