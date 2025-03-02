@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bruno Ciccarino Blog - The Origins of `car` and `cdr` in Lisp</title>
+    <link rel="shortcut icon" href="images/icon.svg" type="image/svg">
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="../">>_ bgcicca</a>
+        </div>
+        <div class="navbar">
+          <nav>
+            <a href="../">Home</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
+            <a href="https://github.com/bgcicca">Github</a>
+            <a href="../archive.html"><img src="https://cdn-icons-png.flaticon.com/128/11148/11148474.png" height="30" width="30" />
+          </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <div class="wrapper">
+        <div class="content">
+          <h1>The Origins of `car` and `cdr` in Lisp</h1>
+          <div class="info">
+    Posted on January  2, 2025
+    
+        by Bruno Ciccarino
+    
+</div>
+<div class="info">
+    
+    Tags: <a title="All pages tagged 'lisp'." href="../tags/lisp.html" rel="tag">lisp</a>, <a title="All pages tagged 'history'." href="../tags/history.html" rel="tag">history</a>, <a title="All pages tagged 'computer science'." href="../tags/computer%20science.html" rel="tag">computer science</a>
+    
+</div>
+
+<p>In Lisp, a <strong>cons cell</strong> is a fundamental building block of linked lists. Each part of a cons cell has a specific name with a historical background, both derived from the IBM 704.</p>
+<p>The IBM 704 is an incredibly old computer by today’s standards—it used vacuum tubes! However, it was revolutionary for its time, being the first mass-produced computer to use magnetic core memory for data storage. It was also (if I’m not mistaken) the first computer capable of performing floating-point arithmetic.</p>
+<p>### The Meaning Behind `car` and `cdr`</p>
+<p>Where do the names `car` and `cdr` come from? The IBM 704 had 36-bit memory registers, and these registers were divided into distinct sections. Two of these sections were particularly important:</p>
+<ul>
+<li>`CAR` = <strong>Contents of Address portion of Register</strong></li>
+<li>`CDR` = <strong>Contents of Decrement portion of Register</strong></li>
+</ul>
+<p>The `CAR` represented the first portion of the register (bits 21–35), while the `CDR`, pronounced as “coder,” represented the second portion (bits 3–17).</p>
+<p>In Lisp, `car` and `cdr` were introduced to return the first part of a cons cell (`car`) and the remainder of the list (`cdr`).</p>
+<div class="sourceCode" id="cb1" data-org-language="lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (<span class="kw">car</span> '(a b c))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (<span class="kw">cdr</span> '(a b c))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>(B C)</span></code></pre></div>
+<p>Using `car` and `cdr`, you can navigate any element within a list. For example, if you want the third element, you could use the `third` function:</p>
+<div class="sourceCode" id="cb2" data-org-language="lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (<span class="kw">third</span> '(a b c d))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>C</span></code></pre></div>
+<p>This is much cleaner than chaining `car` and `cdr` manually:</p>
+<div class="sourceCode" id="cb3" data-org-language="lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;</span> (<span class="kw">car</span> (<span class="kw">cdr</span> (<span class="kw">cdr</span> '(a b c d))))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>C</span></code></pre></div>
+<p>The historical origins of `car` and `cdr` may seem obscure today, but their functionality remains essential in Lisp programming!</p>
+        </div>
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+    <ul>
+      <li><a href="../tags/lem-editor.html">Lem Editor</a></li>
+      <li><a href="../tags/lisp.html">My Lisp notes</a></li>
+    </ul>
+  </div>
+  
+        </aside>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+
+    <footer>
+      Copyright © 2024 2025
+      <a href="https://github.com/bgcicca">Bruno Ciccarino</a>
+      All rights reserved
+    </footer>
+  </body>
+</html>

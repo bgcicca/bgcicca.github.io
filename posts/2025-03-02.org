@@ -1,0 +1,43 @@
+---
+title: The Origins of car and cdr in Lisp
+author: Bruno Ciccarino
+tags: ["lisp", "history", "computer science"]
+---
+
+In Lisp, a *cons cell* is a fundamental building block of linked lists. Each part of a cons cell has a specific name with a historical background, both derived from the IBM 704.
+
+The IBM 704 is an incredibly old computer by today’s standards—it used vacuum tubes! However, it was revolutionary for its time, being the first mass-produced computer to use magnetic core memory for data storage. It was also (if I’m not mistaken) the first computer capable of performing floating-point arithmetic.
+
+*** The Meaning Behind car and cdr
+
+Where do the names car and cdr come from? The IBM 704 had 36-bit memory registers, and these registers were divided into distinct sections. Two of these sections were particularly important:
+
+- CAR = *Contents of Address portion of Register*
+- CDR = *Contents of Decrement portion of Register*
+
+The CAR represented the first portion of the register (bits 21–35), while the CDR, pronounced as "coder," represented the second portion (bits 3–17).
+
+In Lisp, car and cdr were introduced to return the first part of a cons cell (car) and the remainder of the list (cdr).
+
+#+BEGIN_SRC lisp
+> (car '(a b c))
+A
+> (cdr '(a b c))
+(B C)
+#+END_SRC
+
+Using car and cdr, you can navigate to any element in a list. For example, if you want the third element, you can use the third function (which uses car and cdr under the hood):
+#+BEGIN_SRC lisp
+> (third '(a b c d))
+C
+#+END_SRC
+
+This is much cleaner than chaining car and cdr manually:
+
+#+BEGIN_SRC lisp
+> (car (cdr (cdr '(a b c d))))
+C
+#+END_SRC
+
+The historical origins of car and cdr may seem obscure today, but their functionality remains essential in Lisp programming!
+
