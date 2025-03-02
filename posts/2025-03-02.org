@@ -4,7 +4,7 @@ author: Bruno Ciccarino
 tags: ["lisp", "history", "computer science"]
 ---
 
-In Lisp, a *cons cell* is a fundamental building block of linked lists. Each part of a cons cell has a specific name with a historical background, both derived from the IBM 704.
+In Lisp, a *cons cell* is a fundamental building block of linked lists. Each part of a cons cell has a specific name with a historical background, both derived from the IBM 704. If you want to delve deeper into the concept of cons cells, I wrote this article that explains the concept of lists and cons cells in more detail, I recommend you take a look [[https://www.bgcicca.com.br/posts/2025-03-03.html][Under the Hood of Lists - A Low-Level Exploration of Cons Cells in Lisp]].
 
 The IBM 704 is an incredibly old computer by today’s standards—it used vacuum tubes! However, it was revolutionary for its time, being the first mass-produced computer to use magnetic core memory for data storage. It was also (if I’m not mistaken) the first computer capable of performing floating-point arithmetic.
 
