@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bruno Ciccarino Blog - How to make your emacs 91.67% faster</title>
+    <link rel="shortcut icon" href="images/icon.svg" type="image/svg">
+    <link rel="stylesheet" href="../css/default.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="logo">
+          <a href="../">>_ bgcicca</a>
+        </div>
+        <div class="navbar">
+          <nav>
+            <a href="../">Home</a>
+            <a href="../about.html">About</a>
+            <a href="../contact.html">Contact</a>
+            <a href="https://github.com/bgcicca">Github</a>
+            <a href="../archive.html"><img src="https://cdn-icons-png.flaticon.com/128/11148/11148474.png" height="30" width="30" />
+          </a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main role="main">
+      <div class="wrapper">
+        <div class="content">
+          <h1>How to make your emacs 91.67% faster</h1>
+          <div class="info">
+    Posted on March  4, 2025
+    
+        by Bruno Ciccarino
+    
+</div>
+<div class="info">
+    
+    Tags: <a title="All pages tagged 'emacs'." href="../tags/emacs.html" rel="tag">emacs</a>, <a title="All pages tagged 'elisp'." href="../tags/elisp.html" rel="tag">elisp</a>, <a title="All pages tagged 'startup'." href="../tags/startup.html" rel="tag">startup</a>, <a title="All pages tagged 'faster'." href="../tags/faster.html" rel="tag">faster</a>, <a title="All pages tagged 'emacs tutorial'." href="../tags/emacs%20tutorial.html" rel="tag">emacs tutorial</a>
+    
+</div>
+
+<p>If you’ve been using Emacs for a while, you’ve probably noticed that it can get sluggish as you pile on plugins. But what many don’t realize is that you can delay their loading—essentially applying lazy loading—which can make your Emacs up to 91.67% faster. Sounds good? Let me show you how!</p>
+<p>After a bit of research (and honestly, I didn’t even have to dig that deep), I discovered a simple yet powerful parameter in use-package: :defer. When enabled, it postpones the loading of packages until you actually need them. Now, let’s take a look at my config startup before and after using :defer the difference might surprise you!</p>
+<ul>
+<li>before</li>
+</ul>
+<p><img src="../images/bloatedstartup.png" /></p>
+<ul>
+<li>after</li>
+</ul>
+<p><img src="../images/faststartup.png" /></p>
+<p>That’s right, it reduces startup time by more than 90% by adding the following lines to my config:</p>
+<div class="sourceCode" id="cb1" data-org-language="emacs-lisp"><pre class="sourceCode commonlisp"><code class="sourceCode commonlisp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">require</span> <span class="dt">'package</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setq</span> package-archives</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>      '((<span class="st">&quot;melpa&quot;</span> . <span class="st">&quot;https://melpa.org/packages/&quot;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;gnu&quot;</span> . <span class="st">&quot;https://elpa.gnu.org/packages/&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        (<span class="st">&quot;nongnu&quot;</span> . <span class="st">&quot;https://elpa.nongnu.org/nongnu/&quot;</span>)))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>(<span class="kw">setq</span> package-enable-at-startup <span class="kw">nil</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>(package-initialize)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>(<span class="kw">unless</span> (package-installed-p <span class="dt">'use-package</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  (package-refresh-contents)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  (package-install <span class="dt">'use-package</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>(eval-when-compile</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">require</span> <span class="dt">'use-package</span>))</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>(put <span class="dt">'use-package</span> <span class="dt">'lisp-indent-function</span> <span class="dv">1</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> use-package-core</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  :custom</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  (use-package-verbose <span class="kw">t</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  (use-package-minimum-reported-time <span class="fl">0.005</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  (use-package-enable-imenu-support <span class="kw">t</span>))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> benchmark-init</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  :ensure <span class="kw">t</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  :config</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="co">;; To disable collection of benchmark data after init is done.</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  (add-hook <span class="dt">'after-init-hook</span> <span class="dt">'benchmark-init/deactivate</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> gcmh</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  :ensure <span class="kw">t</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  :demand <span class="kw">t</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  :custom</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  (gcmh-high-cons-threshold (<span class="op">*</span> <span class="dv">16</span> <span class="dv">1024</span> <span class="dv">1024</span>))</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  :config</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>  (gcmh-mode <span class="dv">1</span>))</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> system-packages</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  :ensure <span class="kw">t</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  :defer <span class="kw">t</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  :custom</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  (system-packages-noconfirm <span class="kw">t</span>))</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> quelpa</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>  :ensure <span class="kw">t</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  :defer <span class="kw">t</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  :custom</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  (quelpa-update-melpa-p <span class="kw">nil</span> <span class="st">&quot;Don't update the MELPA git repo.&quot;</span>))</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>(<span class="kw">use-package</span> quelpa-use-package</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  :ensure <span class="kw">t</span>)</span></code></pre></div>
+<p>I didn’t even believe it the first time I saw it, I had to test it 3 times to make sure it wasn’t an isolated incident.</p>
+<p>This code sets up Emacs’ package management in a way that significantly boosts performance. It begins by defining multiple package archives—MELPA, GNU, and Nongnu—and deliberately disables automatic package loading at startup, ensuring that packages only load when explicitly needed. The script then initializes the package system and installs use-package if it’s not already present, which streamlines further configuration. By requiring use-package at compile time and setting up custom indentation, it lays the groundwork for a cleaner, more efficient setup.</p>
+<p>If you want to see my config in full, this is the link: <a href="https://github.com/bgc-emacs/bgc-emacs">bgc-emacs</a> and if you like it you can contribute or leave a star in the repository, both are great.</p>
+<h1 id="conclusion">Conclusion</h1>
+<p>In summary, adopting lazy loading with the :defer parameter in use-package is a simple yet powerful strategy to optimize your Emacs startup. With just a few extra lines of code, you can slash your startup time by over 90%, delivering a much snappier and more responsive experience. This tweak not only boosts your productivity but also proves that minor configuration adjustments can have a huge impact. After testing the improvements multiple times, I’m convinced that integrating lazy loading into your setup is a game changer. Enjoy a faster, more efficient Emacs!</p>
+        </div>
+        <aside class="sidebar">
+            <div class="sidebar-widget">
+    <ul>
+      <li><a href="../tags/lem-editor.html">Lem Editor</a></li>
+      <li><a href="../tags/emacs.html">Emacs s2</a></li>
+      <li><a href="../tags/lisp.html">My Lisp notes</a></li>
+    </ul>
+  </div>
+  
+        </aside>
+      </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+      hljs.highlightAll();
+    </script>
+
+    <footer>
+      Copyright © 2024 2025
+      <a href="https://github.com/bgcicca">Bruno Ciccarino</a>
+      All rights reserved
+    </footer>
+  </body>
+</html>

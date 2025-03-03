@@ -1,0 +1,85 @@
+---
+title: How to make your emacs 91.67% faster
+author: Bruno Ciccarino 
+tags: ["emacs", "elisp", "startup", "faster", "emacs tutorial"]
+---
+
+If you've been using Emacs for a while, you’ve probably noticed that it can get sluggish as you pile on plugins. But what many don’t realize is that you can delay their loading—essentially applying lazy loading—which can make your Emacs up to 91.67% faster. Sounds good? Let me show you how!
+
+After a bit of research (and honestly, I didn’t even have to dig that deep), I discovered a simple yet powerful parameter in use-package: :defer. When enabled, it postpones the loading of packages until you actually need them. Now, let's take a look at my config startup before and after using :defer the difference might surprise you!
+
+- before 
+
+[[file:../images/bloatedstartup.png]]
+
+- after 
+
+[[file:../images/faststartup.png]]
+
+That's right, it reduces startup time by more than 90% by adding the following lines to my config:
+
+#+BEGIN_SRC emacs-lisp 
+
+(require 'package)
+(setq package-archives
+      '(("melpa" . "https://melpa.org/packages/")
+        ("gnu" . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+(setq package-enable-at-startup nil)
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+(put 'use-package 'lisp-indent-function 1)
+
+(use-package use-package-core
+  :custom
+  (use-package-verbose t)
+  (use-package-minimum-reported-time 0.005)
+  (use-package-enable-imenu-support t))
+
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate)
+  )
+
+(use-package gcmh
+  :ensure t
+  :demand t
+  :custom
+  (gcmh-high-cons-threshold (* 16 1024 1024))
+  :config
+  (gcmh-mode 1))
+
+(use-package system-packages
+  :ensure t
+  :defer t
+  :custom
+  (system-packages-noconfirm t))
+
+(use-package quelpa
+  :ensure t
+  :defer t
+  :custom
+  (quelpa-update-melpa-p nil "Don't update the MELPA git repo."))
+
+(use-package quelpa-use-package
+  :ensure t)
+#+END_SRC
+
+I didn't even believe it the first time I saw it, I had to test it 3 times to make sure it wasn't an isolated incident.
+
+This code sets up Emacs' package management in a way that significantly boosts performance. It begins by defining multiple package archives—MELPA, GNU, and Nongnu—and deliberately disables automatic package loading at startup, ensuring that packages only load when explicitly needed. The script then initializes the package system and installs use-package if it's not already present, which streamlines further configuration. By requiring use-package at compile time and setting up custom indentation, it lays the groundwork for a cleaner, more efficient setup.
+
+If you want to see my config in full, this is the link: [[https://github.com/bgc-emacs/bgc-emacs][bgc-emacs]] and if you like it you can contribute or leave a star in the repository, both are great.
+
+* Conclusion
+
+In summary, adopting lazy loading with the :defer parameter in use-package is a simple yet powerful strategy to optimize your Emacs startup. With just a few extra lines of code, you can slash your startup time by over 90%, delivering a much snappier and more responsive experience. This tweak not only boosts your productivity but also proves that minor configuration adjustments can have a huge impact. After testing the improvements multiple times, I'm convinced that integrating lazy loading into your setup is a game changer. Enjoy a faster, more efficient Emacs!
